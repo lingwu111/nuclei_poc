@@ -1,17 +1,21 @@
 language: go
 
 go:
-  - 1.9.x
-  - 1.12.x
-  - 1.13.x
-  - 1.14.x
-  - 1.15.x
+  - 1.x
+
+env:
+  - CGO_ENABLED=0
 
 install:
-  - go get golang.org/x/net/html/charset
-  - go get github.com/antchfx/xpath
-  - go get github.com/mattn/goveralls
-  - go get github.com/golang/groupcache
+  - go get -t ./...
+  - go get golang.org/x/lint/golint
+  - go get github.com/gordonklaus/ineffassign
 
 script:
-  - $HOME/gopath/bin/goveralls -service=travis-ci
+  - diff <(echo -n) <(gofmt -s -d .)
+  - ineffassign .
+  - go vet ./...
+  - go test ./...
+
+after_script:
+  - golint ./...

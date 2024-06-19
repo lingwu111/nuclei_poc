@@ -1,5 +1,4 @@
 id: dubbo-admin-default-login
-
 info:
   name: Apache Dubbo - Default Admin Discovery
   author: ritikchaddha
@@ -12,15 +11,13 @@ info:
     cvss-score: 8.3
     cwe-id: CWE-522
   tags: dubbo,apache,default-login
-
-http:
+requests:
   - raw:
       - |
         GET / HTTP/1.1
         Host: {{Hostname}}
         Content-Type: application/x-www-form-urlencoded
         Authorization: Basic {{base64(username + ':' + password)}}
-
     attack: pitchfork
     payloads:
       username:
@@ -29,7 +26,6 @@ http:
       password:
         - guest
         - root
-
     matchers-condition: and
     matchers:
       - type: word
@@ -38,7 +34,6 @@ http:
           - "/sysinfo/versions"
           - "{{username}}', '/logout')"
         condition: and
-
       - type: status
         status:
           - 200
