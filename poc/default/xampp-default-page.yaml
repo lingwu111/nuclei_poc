@@ -4,10 +4,9 @@ info:
   name: XAMPP Default Page
   author: dhiyaneshDK
   severity: info
-  metadata:
-    shodan-query: http.title:"XAMPP"
+  reference:
+    - https://www.shodan.io/search?query=http.title%3A%22XAMPP%22&page=1
   tags: tech,php,xampp,apache
-  mongoid: 0000
 
 requests:
   - method: GET
